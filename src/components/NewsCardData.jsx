@@ -14,9 +14,11 @@ export default function NewsCardData() {
   }
 
   const previousDay = getPreviousDay();
-  const apiKey = "44d465b6c0184d818ffc110b23d4c387";
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const apiUrl = `https://newsapi.org/v2/everything?q=Apple&from=${previousDay}&sortBy=popularity&apiKey=${apiKey}`;
+
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     fetch(apiUrl)
@@ -25,29 +27,26 @@ export default function NewsCardData() {
       .catch((error) => console.error("Error fetching news:", error));
   }, []);
 
-  const [news, setNews] = useState([]);
-  console.log(news);
-
   return (
     <>
       <ul>
         {news?.map((newsData, index) => (
           <>
             <li key={index}>
-                <a href={newsData.url} target="_blank">
-              <div width="20%" height="20%">
-                <img
-                  src={
-                    newsData.urlToImage == null || newsData.urlToImage == ""
-                      ? "bigBreaking.jpg"
-                      : newsData.urlToImage
-                  }
-                  alt={index}
-                />
-                <h2>Name of Author: {newsData.author}</h2>
-                <h3>Title : {newsData.content}</h3>
-                <p>Full Description : {newsData.description}</p>
-              </div>
+              <a href={newsData.url} target="_blank">
+                <div width="20%" height="20%">
+                  <img
+                    src={
+                      newsData.urlToImage == null || newsData.urlToImage == ""
+                        ? "bigBreaking.jpg"
+                        : newsData.urlToImage
+                    }
+                    alt={index}
+                  />
+                  <h2>Name of Author: {newsData.author}</h2>
+                  <h3>Title : {newsData.content}</h3>
+                  <p>Full Description : {newsData.description}</p>
+                </div>
               </a>
               <br />
             </li>

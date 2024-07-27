@@ -3,8 +3,6 @@ import Header from './components/Header'
 import NewsCardData from './components/NewsCardData'
 
 function App() {
-
-
   return (
     <>
     <Header></Header>
